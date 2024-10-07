@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GitHub Mobile Client</string>
+    <string name="hint_login">Login</string>
+    <string name="hint_password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="toast_login_empty">Please enter login and password</string>
+    <string name="toast_login_success">Login successful</string>
+</resources>

@@ -1,0 +1,27 @@
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("AuthActivity", "onActivityResult called with requestCode: $requestCode, resultCode: $resultCode")
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == AUTH_REQUEST_CODE && resultCode == RESULT_OK) {
+            Log.d("AuthActivity", "Result OK, processing data")
+            val uri = data?.data
+            Log.d("AuthActivity", "Raw Response URI: $uri") // Логируем полученный URI
+            if (uri != null) {
+                if (uri.toString().startsWith(redirectUri.toString())) {
+                    val code = uri.getQueryParameter("code")
+                    if (code != null) {
+                        Log.d("AuthActivity", "Authorization code: $code")
+                        handleAuthorizationCode(code)
+                    } else {
+                        Log.e("AuthActivity", "Authorization code is null")
+                    }
+                } else {
+                    Log.e("AuthActivity", "Redirect URI mismatch: $uri")
+                }
+            } else {
+                Log.e("AuthActivity", "Received URI is null")
+            }
+        } else {
+            Log.e("AuthActivity", "Invalid request code or result code: requestCode=$requestCode, resultCode=$resultCode")
+        }
+    }
